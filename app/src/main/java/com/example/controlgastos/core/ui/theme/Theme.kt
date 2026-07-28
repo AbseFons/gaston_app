@@ -10,43 +10,91 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val GastonDarkColorScheme = darkColorScheme(
+    primary = GastonDarkPrimary,
+    onPrimary = GastonDarkOnPrimary,
+    primaryContainer = GastonDarkPrimaryContainer,
+    onPrimaryContainer = GastonDarkOnPrimaryContainer,
+
+    secondary = GastonDarkSecondary,
+    onSecondary = GastonDarkOnSecondary,
+    secondaryContainer = GastonDarkSecondaryContainer,
+    onSecondaryContainer = GastonDarkOnSecondaryContainer,
+
+    tertiary = GastonDarkTertiary,
+    onTertiary = GastonDarkOnTertiary,
+    tertiaryContainer = GastonDarkTertiaryContainer,
+    onTertiaryContainer = GastonDarkOnTertiaryContainer,
+
+    background = GastonDarkBackground,
+    onBackground = GastonDarkOnBackground,
+
+    surface = GastonDarkSurface,
+    onSurface = GastonDarkOnSurface,
+
+    surfaceVariant = GastonDarkSurfaceVariant,
+    onSurfaceVariant = GastonDarkOnSurfaceVariant,
+
+    outline = GastonDarkOutline,
+
+    error = GastonDarkError,
+    onError = GastonDarkOnError,
+    errorContainer = GastonDarkErrorContainer,
+    onErrorContainer = GastonDarkOnErrorContainer
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private val GastonLightColorScheme = lightColorScheme(
+    primary = GastonLightPrimary,
+    onPrimary = GastonLightOnPrimary,
+    primaryContainer = GastonLightPrimaryContainer,
+    onPrimaryContainer = GastonLightOnPrimaryContainer,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = GastonLightSecondary,
+    onSecondary = GastonLightOnSecondary,
+    secondaryContainer = GastonLightSecondaryContainer,
+    onSecondaryContainer = GastonLightOnSecondaryContainer,
+
+    tertiary = GastonLightTertiary,
+    onTertiary = GastonLightOnTertiary,
+    tertiaryContainer = GastonLightTertiaryContainer,
+    onTertiaryContainer = GastonLightOnTertiaryContainer,
+
+    background = GastonLightBackground,
+    onBackground = GastonLightOnBackground,
+
+    surface = GastonLightSurface,
+    onSurface = GastonLightOnSurface,
+
+    surfaceVariant = GastonLightSurfaceVariant,
+    onSurfaceVariant = GastonLightOnSurfaceVariant,
+
+    outline = GastonLightOutline,
+
+    error = GastonLightError,
+    onError = GastonLightOnError,
+    errorContainer = GastonLightErrorContainer,
+    onErrorContainer = GastonLightOnErrorContainer
 )
 
 @Composable
 fun AppSQLiteTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+
+            if (darkTheme) {
+                dynamicDarkColorScheme(context)
+            } else {
+                dynamicLightColorScheme(context)
+            }
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> GastonDarkColorScheme
+        else -> GastonLightColorScheme
     }
 
     MaterialTheme(

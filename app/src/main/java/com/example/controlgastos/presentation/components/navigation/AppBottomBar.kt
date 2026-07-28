@@ -46,10 +46,6 @@ fun AppBottomBar(
         BottomNavItem.Configuracion
     )
 
-    /*
-     * El padding superior reserva espacio para que el FAB
-     * sobresalga sin aumentar demasiado la altura de la barra.
-     */
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,10 +77,6 @@ fun AppBottomBar(
                     )
                 }
 
-                /*
-                 * Espacio central para que los elementos no queden
-                 * debajo del botón flotante.
-                 */
                 Spacer(
                     modifier = Modifier.size(
                         width = 76.dp,
@@ -104,10 +96,6 @@ fun AppBottomBar(
             }
         }
 
-        /*
-         * Este círculo usa el fondo general de la aplicación
-         * para generar visualmente el corte o espacio de la barra.
-         */
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
