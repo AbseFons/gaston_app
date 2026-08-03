@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,10 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.ErrorGasto
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
 
 @Composable
 fun GastoItemCard(
@@ -54,7 +51,7 @@ fun GastoItemCard(
             .then(modifierClick),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
@@ -92,7 +89,7 @@ fun GastoItemCard(
             ) {
                 Text(
                     text = descripcion,
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
@@ -101,7 +98,7 @@ fun GastoItemCard(
 
                 Text(
                     text = "$categoria · $fecha",
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -113,7 +110,7 @@ fun GastoItemCard(
                 ) {
                     Text(
                         text = nota,
-                        color = TextoSecundario,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -128,7 +125,7 @@ fun GastoItemCard(
 
             Text(
                 text = "- S/ ${monto.formatoMoneda()}",
-                color = ErrorGasto,
+                color = MaterialTheme.colorScheme.error,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )

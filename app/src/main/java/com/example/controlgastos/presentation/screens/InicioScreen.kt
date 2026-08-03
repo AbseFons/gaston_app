@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,14 +35,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.Fondo
-import com.example.controlgastos.core.ui.theme.FondoAcentoSuave
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.IngresoPositivo
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
+import com.example.controlgastos.core.ui.util.colorDesdeHex
 import com.example.controlgastos.presentation.components.BalanceCard
 import com.example.controlgastos.presentation.components.GastoItemCard
 import com.example.controlgastos.presentation.components.formatoMoneda
@@ -104,7 +98,7 @@ fun InicioScreen(
         modifier = Modifier.nestedScroll(
             scrollBehavior.nestedScrollConnection
         ),
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             AppTopBar(
                 scrollBehavior = scrollBehavior,
@@ -121,7 +115,7 @@ fun InicioScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Fondo)
+                .background(MaterialTheme.colorScheme.background)
                 .verticalScroll(rememberScrollState())
                 .padding(
                     horizontal = 20.dp,
@@ -136,7 +130,7 @@ fun InicioScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = Primario
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             } else {
@@ -156,15 +150,15 @@ fun InicioScreen(
                     MiniResumenCard(
                         titulo = "Disponible",
                         monto = "$moneda ${saldoDisponible.formatoMoneda()}",
-                        color = IngresoPositivo,
-                        fondo = FondoAcentoSuave,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fondo = MaterialTheme.colorScheme.secondaryContainer,
                         modifier = Modifier.weight(1f)
                     )
                     MiniResumenCard(
                         titulo = "Presupuesto",
                         monto = "$moneda ${presupuestoMensual.formatoMoneda()}",
-                        color = Primario,
-                        fondo = FondoPrimarioSuave,
+                        color = MaterialTheme.colorScheme.primary,
+                        fondo = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -197,7 +191,7 @@ fun InicioScreen(
                                 monto = gasto.monto,
                                 colorCategoria = colorDesdeHex(
                                     categoria?.color
-                                )
+                                ) ?: MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -226,7 +220,7 @@ private fun MiniResumenCard(
         modifier = modifier,
         shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -254,13 +248,13 @@ private fun MiniResumenCard(
 
             Text(
                 text = titulo,
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp
             )
 
             Text(
                 text = monto,
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -279,7 +273,7 @@ private fun SectionTitle(
     ) {
         Text(
             text = titulo,
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.weight(1f)
@@ -287,7 +281,7 @@ private fun SectionTitle(
 
         Text(
             text = accion,
-            color = Primario,
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -299,14 +293,14 @@ private fun EmptyGastosCard() {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
-        color = Tarjetas
+        color = MaterialTheme.colorScheme.surface
     ) {
         Column(
             modifier = Modifier.padding(18.dp)
         ) {
             Text(
                 text = "Aún no hay gastos",
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
@@ -315,7 +309,7 @@ private fun EmptyGastosCard() {
 
             Text(
                 text = "Agrega tu primer gasto para ver el resumen mensual.",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
         }
@@ -330,14 +324,14 @@ private fun ConsejoCard(
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
-        color = FondoAcentoSuave
+        color = MaterialTheme.colorScheme.secondaryContainer
     ) {
         Column(
             modifier = Modifier.padding(18.dp)
         ) {
             Text(
                 text = "Consejo rápido",
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
@@ -348,25 +342,11 @@ private fun ConsejoCard(
                 text = "Tus gastos registrados este mes suman " +
                         "S/ ${totalMes.formatoMoneda()}. " +
                         "La categoría con mayor gasto es $categoriaMayor.",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp,
                 lineHeight = 20.sp
             )
         }
-    }
-}
-
-private fun colorDesdeHex(hex: String?): Color {
-    return try {
-        if (hex.isNullOrBlank()) {
-            Primario
-        } else {
-            Color(
-                android.graphics.Color.parseColor(hex)
-            )
-        }
-    } catch (_: Exception) {
-        Primario
     }
 }
 

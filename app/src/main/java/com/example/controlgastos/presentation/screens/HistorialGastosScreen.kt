@@ -45,6 +45,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -66,14 +67,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.BordeSuave
-import com.example.controlgastos.core.ui.theme.ErrorGasto
-import com.example.controlgastos.core.ui.theme.Fondo
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
+import com.example.controlgastos.core.ui.util.colorDesdeHex
 import com.example.controlgastos.domain.model.Categoria
 import com.example.controlgastos.domain.model.Gasto
 import com.example.controlgastos.presentation.components.GastoItemCard
@@ -147,7 +141,7 @@ fun HistorialGastosScreen(
         modifier = Modifier.nestedScroll(
             scrollBehavior.nestedScrollConnection
         ),
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             HistorialTopBar(
                 busquedaActiva = busquedaActiva,
@@ -180,7 +174,7 @@ fun HistorialGastosScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = Primario
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -200,7 +194,7 @@ fun HistorialGastosScreen(
                     modifier = Modifier
                         .padding(paddingValues)
                         .fillMaxSize()
-                        .background(Fondo),
+                        .background(MaterialTheme.colorScheme.background),
                     contentPadding = PaddingValues(
                         start = 20.dp,
                         end = 20.dp,
@@ -251,7 +245,7 @@ fun HistorialGastosScreen(
                                 categoria = categoria?.nombre ?: "Sin categoría",
                                 fecha = gasto.fecha.formatoFechaCorta(),
                                 monto = gasto.monto,
-                                colorCategoria = colorDesdeHex(categoria?.color),
+                                colorCategoria = colorDesdeHex(categoria?.color)?: MaterialTheme.colorScheme.primary,
                                 nota = gasto.nota,
                                 mostrarNota = true,
                                 onClick = {
@@ -272,7 +266,7 @@ fun HistorialGastosScreen(
         DetalleGastoBottomSheet(
             gasto = gasto,
             nombreCategoria = categoria?.nombre ?: "Sin categoría",
-            colorCategoria = colorDesdeHex(categoria?.color),
+            colorCategoria = colorDesdeHex(categoria?.color)?: MaterialTheme.colorScheme.primary,
             onDismiss = {
                 gastoSeleccionado = null
             }
@@ -322,7 +316,7 @@ private fun HistorialTopBar(
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Buscar gastos",
-                        tint = TextoPrincipal
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             } else {
@@ -332,7 +326,7 @@ private fun HistorialTopBar(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Cerrar búsqueda",
-                        tint = TextoPrincipal
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -349,9 +343,9 @@ private fun HistorialTopBar(
                         tint = if (
                             categoriaSeleccionadaId != null
                         ) {
-                            Primario
+                            MaterialTheme.colorScheme.primary
                         } else {
-                            TextoPrincipal
+                            MaterialTheme.colorScheme.onSurface
                         }
                     )
                 }
@@ -366,7 +360,7 @@ private fun HistorialTopBar(
                             )
                             .size(8.dp)
                             .background(
-                                color = Primario,
+                                color = MaterialTheme.colorScheme.primary,
                                 shape = CircleShape
                             )
                     )
@@ -377,7 +371,7 @@ private fun HistorialTopBar(
                     onDismissRequest = {
                         menuFiltroAbierto = false
                     },
-                    containerColor = Fondo,
+                    containerColor = MaterialTheme.colorScheme.background,
                     modifier = Modifier.widthIn(
                         min = 230.dp
                     )
@@ -386,7 +380,7 @@ private fun HistorialTopBar(
                         text = {
                             Text(
                                 text = "Todas las categorías",
-                                color = TextoPrincipal
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         },
                         onClick = {
@@ -398,14 +392,14 @@ private fun HistorialTopBar(
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = null,
-                                    tint = Primario
+                                    tint = MaterialTheme.colorScheme.primary
                                 )
                             }
                         }
                     )
 
                     HorizontalDivider(
-                        color = BordeSuave
+                        color = MaterialTheme.colorScheme.outline
                     )
 
                     categorias.forEach { categoria ->
@@ -413,7 +407,7 @@ private fun HistorialTopBar(
                             text = {
                                 Text(
                                     text = categoria.nombre,
-                                    color = TextoPrincipal
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             },
                             leadingIcon = {
@@ -421,9 +415,7 @@ private fun HistorialTopBar(
                                     modifier = Modifier
                                         .size(12.dp)
                                         .background(
-                                            color = colorDesdeHex(
-                                                categoria.color
-                                            ),
+                                            color = colorDesdeHex(categoria.color)?: MaterialTheme.colorScheme.primary,
                                             shape = CircleShape
                                         )
                                 )
@@ -437,7 +429,7 @@ private fun HistorialTopBar(
                                         imageVector =
                                             Icons.Default.Check,
                                         contentDescription = null,
-                                        tint = Primario
+                                        tint = MaterialTheme.colorScheme.primary
                                     )
                                 }
                             },
@@ -477,11 +469,11 @@ private fun CampoBusquedaHeader(
             .focusRequester(focusRequester),
         singleLine = true,
         textStyle = androidx.compose.ui.text.TextStyle(
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium
         ),
-        cursorBrush = SolidColor(Primario),
+        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done
         ),
@@ -493,7 +485,7 @@ private fun CampoBusquedaHeader(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        color = FondoPrimarioSuave,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         shape = RoundedCornerShape(16.dp)
                     )
                     .padding(
@@ -504,7 +496,7 @@ private fun CampoBusquedaHeader(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    tint = Primario,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp)
                 )
 
@@ -519,7 +511,7 @@ private fun CampoBusquedaHeader(
                     if (texto.isEmpty()) {
                         Text(
                             text = "Buscar por descripción",
-                            color = TextoSecundario,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 14.sp
                         )
                     }
@@ -540,7 +532,7 @@ private fun ResumenHistorialCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -557,7 +549,7 @@ private fun ResumenHistorialCard(
             ) {
                 Text(
                     text = "Movimientos encontrados",
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp
                 )
 
@@ -567,7 +559,7 @@ private fun ResumenHistorialCard(
 
                 Text(
                     text = "$cantidad gastos",
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -578,7 +570,7 @@ private fun ResumenHistorialCard(
             ) {
                 Text(
                     text = "Total",
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp
                 )
 
@@ -588,7 +580,7 @@ private fun ResumenHistorialCard(
 
                 Text(
                     text = "S/ ${total.formatoMoneda()}",
-                    color = ErrorGasto,
+                    color = MaterialTheme.colorScheme.error,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -608,7 +600,7 @@ private fun FiltroActivo(
     ) {
         Surface(
             shape = RoundedCornerShape(50.dp),
-            color = FondoPrimarioSuave
+            color = MaterialTheme.colorScheme.primaryContainer
         ) {
             Row(
                 modifier = Modifier.padding(
@@ -621,7 +613,7 @@ private fun FiltroActivo(
             ) {
                 Text(
                     text = "Categoría: $nombreCategoria",
-                    color = Primario,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -633,7 +625,7 @@ private fun FiltroActivo(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Quitar filtro",
-                        tint = Primario,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(17.dp)
                     )
                 }
@@ -649,7 +641,7 @@ private fun FiltroActivo(
         ) {
             Text(
                 text = "Limpiar",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp
             )
         }
@@ -665,7 +657,7 @@ private fun EmptyHistorialCard(
             .fillMaxWidth()
             .padding(top = 20.dp),
         shape = RoundedCornerShape(24.dp),
-        color = Tarjetas
+        color = MaterialTheme.colorScheme.surface
     ) {
         Column(
             modifier = Modifier.padding(
@@ -678,7 +670,7 @@ private fun EmptyHistorialCard(
                 modifier = Modifier
                     .size(54.dp)
                     .background(
-                        color = FondoPrimarioSuave,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         shape = RoundedCornerShape(18.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -686,7 +678,7 @@ private fun EmptyHistorialCard(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    tint = Primario,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(27.dp)
                 )
             }
@@ -701,7 +693,7 @@ private fun EmptyHistorialCard(
                 } else {
                     "Aún no hay gastos"
                 },
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -716,7 +708,7 @@ private fun EmptyHistorialCard(
                 } else {
                     "Los gastos que registres aparecerán en esta sección."
                 },
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp,
                 lineHeight = 20.sp
             )
@@ -736,7 +728,7 @@ private fun ErrorHistorial(
         Card(
             shape = RoundedCornerShape(22.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Tarjetas
+                containerColor = MaterialTheme.colorScheme.surface
             )
         ) {
             Column(
@@ -745,7 +737,7 @@ private fun ErrorHistorial(
             ) {
                 Text(
                     text = "No se pudo cargar el historial",
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -756,27 +748,11 @@ private fun ErrorHistorial(
 
                 Text(
                     text = mensaje,
-                    color = ErrorGasto,
+                    color = MaterialTheme.colorScheme.error,
                     fontSize = 14.sp
                 )
             }
         }
-    }
-}
-
-private fun colorDesdeHex(
-    hex: String?
-): Color {
-    return try {
-        if (hex.isNullOrBlank()) {
-            Primario
-        } else {
-            Color(
-                android.graphics.Color.parseColor(hex)
-            )
-        }
-    } catch (_: Exception) {
-        Primario
     }
 }
 
@@ -795,10 +771,10 @@ private fun DetalleGastoBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         dragHandle = {
             BottomSheetDefaults.DragHandle(
-                color = BordeSuave
+                color = MaterialTheme.colorScheme.outline
             )
         }
     ) {
@@ -817,7 +793,7 @@ private fun DetalleGastoBottomSheet(
             ) {
                 Text(
                     text = "Detalle del gasto",
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 21.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.weight(1f)
@@ -829,7 +805,7 @@ private fun DetalleGastoBottomSheet(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Cerrar detalle",
-                        tint = TextoSecundario
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -877,7 +853,7 @@ private fun DetalleGastoBottomSheet(
 
             Text(
                 text = gasto.descripcion,
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -888,7 +864,7 @@ private fun DetalleGastoBottomSheet(
 
             Text(
                 text = "- S/ ${gasto.monto.formatoMoneda()}",
-                color = ErrorGasto,
+                color = MaterialTheme.colorScheme.error,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -898,7 +874,7 @@ private fun DetalleGastoBottomSheet(
             )
 
             HorizontalDivider(
-                color = BordeSuave
+                color = MaterialTheme.colorScheme.outline
             )
 
             Spacer(
@@ -925,7 +901,7 @@ private fun DetalleGastoBottomSheet(
 
             Text(
                 text = "Nota",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -937,10 +913,10 @@ private fun DetalleGastoBottomSheet(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
-                color = Tarjetas,
+                color = MaterialTheme.colorScheme.surface,
                 border = BorderStroke(
                     width = 1.dp,
-                    color = BordeSuave
+                    color = MaterialTheme.colorScheme.outline
                 )
             ) {
                 Text(
@@ -948,9 +924,9 @@ private fun DetalleGastoBottomSheet(
                         "Este gasto no tiene una nota registrada."
                     },
                     color = if (gasto.nota.isBlank()) {
-                        TextoSecundario
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     } else {
-                        TextoPrincipal
+                        MaterialTheme.colorScheme.onSurface
                     },
                     fontSize = 14.sp,
                     lineHeight = 20.sp,
@@ -972,14 +948,14 @@ private fun DetalleFila(
     ) {
         Text(
             text = etiqueta,
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp,
             modifier = Modifier.weight(1f)
         )
 
         Text(
             text = valor,
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )

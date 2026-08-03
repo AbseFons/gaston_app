@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,9 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.Acento
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
 
 @Composable
 fun BalanceCard(
@@ -41,14 +39,14 @@ fun BalanceCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(28.dp),
-        colors = CardDefaults.cardColors(containerColor = Tarjetas),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier = Modifier
                 .background(
                     Brush.linearGradient(
-                        colors = listOf(Primario, Acento)
+                        colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.secondary)
                     )
                 )
                 .padding(22.dp)

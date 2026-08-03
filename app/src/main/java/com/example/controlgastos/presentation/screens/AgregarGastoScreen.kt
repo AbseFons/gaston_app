@@ -27,6 +27,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -55,14 +56,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.BordeSuave
-import com.example.controlgastos.core.ui.theme.ErrorGasto
-import com.example.controlgastos.core.ui.theme.Fondo
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
 import com.example.controlgastos.domain.model.Gasto
 import com.example.controlgastos.presentation.components.CategoriaChip
 import com.example.controlgastos.presentation.components.PrimaryButton
@@ -109,17 +102,17 @@ fun AgregarGastoScreen(
     )
 
     val coloresCampo = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = TextoPrincipal,
-        unfocusedTextColor = TextoSecundario,
-        errorTextColor = TextoPrincipal,
-        focusedBorderColor = Primario,
-        unfocusedBorderColor = BordeSuave,
-        focusedLabelColor = Primario,
-        unfocusedLabelColor = TextoSecundario,
-        cursorColor = Primario,
-        errorBorderColor = ErrorGasto,
-        errorLabelColor = ErrorGasto,
-        errorCursorColor = ErrorGasto
+        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+        unfocusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        errorTextColor = MaterialTheme.colorScheme.onSurface,
+        focusedBorderColor = MaterialTheme.colorScheme.primary,
+        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+        focusedLabelColor = MaterialTheme.colorScheme.primary,
+        unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        cursorColor = MaterialTheme.colorScheme.primary,
+        errorBorderColor = MaterialTheme.colorScheme.error,
+        errorLabelColor = MaterialTheme.colorScheme.error,
+        errorCursorColor = MaterialTheme.colorScheme.error
     )
 
     LaunchedEffect(uiState.categorias) {
@@ -149,7 +142,7 @@ fun AgregarGastoScreen(
         modifier = Modifier.nestedScroll(
             scrollBehavior.nestedScrollConnection
         ),
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = {
             SnackbarHost(snackbarHostState)
         },
@@ -164,7 +157,7 @@ fun AgregarGastoScreen(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Volver",
-                            tint = TextoPrincipal
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -175,7 +168,7 @@ fun AgregarGastoScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Fondo)
+                .background(MaterialTheme.colorScheme.background)
                 .verticalScroll(rememberScrollState())
                 .padding(
                     horizontal = 20.dp,
@@ -202,7 +195,7 @@ fun AgregarGastoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(26.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = Tarjetas
+                    containerColor = MaterialTheme.colorScheme.surface
                 ),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 2.dp
@@ -214,7 +207,7 @@ fun AgregarGastoScreen(
                 ) {
                     Text(
                         text = "Detalles del gasto",
-                        color = TextoPrincipal,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -271,7 +264,7 @@ fun AgregarGastoScreen(
                     Column {
                         Text(
                             text = "Fecha",
-                            color = TextoPrincipal,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -293,7 +286,7 @@ fun AgregarGastoScreen(
                                             Icons.Default.DateRange,
                                         contentDescription =
                                             "Seleccionar fecha",
-                                        tint = Primario
+                                        tint = MaterialTheme.colorScheme.primary
                                     )
                                 },
                                 supportingText = {
@@ -394,7 +387,7 @@ fun AgregarGastoScreen(
 
             Text(
                 text = "El gasto se guardará únicamente en este dispositivo.",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -427,7 +420,7 @@ private fun EncabezadoFormulario() {
     Column {
         Text(
             text = "Añade un nuevo movimiento",
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold
         )
@@ -436,7 +429,7 @@ private fun EncabezadoFormulario() {
 
         Text(
             text = "Completa la información para mantener actualizado tu presupuesto.",
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp,
             lineHeight = 20.sp
         )
@@ -455,7 +448,7 @@ private fun MontoCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(26.dp),
         colors = CardDefaults.cardColors(
-            containerColor = FondoPrimarioSuave
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
@@ -466,7 +459,7 @@ private fun MontoCard(
         ) {
             Text(
                 text = "Monto del gasto",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
 
@@ -478,7 +471,7 @@ private fun MontoCard(
                 prefix = {
                     Text(
                         text = "S/ ",
-                        color = Primario,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -487,11 +480,11 @@ private fun MontoCard(
                     Text(
                         text = "0.00",
                         fontSize = 26.sp,
-                        color = TextoSecundario
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 textStyle = androidx.compose.ui.text.TextStyle(
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold
                 ),
@@ -531,7 +524,7 @@ private fun CategoriaSection(
     Column {
         Text(
             text = "Categoría",
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -541,7 +534,7 @@ private fun CategoriaSection(
         if (categorias.isEmpty()) {
             Text(
                 text = "Cargando categorías...",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp
             )
         } else {
@@ -590,7 +583,7 @@ private fun SelectorFechaDialog(
             ) {
                 Text(
                     text = "Aceptar",
-                    color = Primario,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -601,7 +594,7 @@ private fun SelectorFechaDialog(
             ) {
                 Text(
                     text = "Cancelar",
-                    color = TextoSecundario
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

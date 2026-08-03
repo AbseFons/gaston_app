@@ -34,6 +34,7 @@ val GastonLightOnError = Color(0xFFFFFFFF)
 val GastonLightErrorContainer = Color(0xFFFFE9E7)
 val GastonLightOnErrorContainer = Color(0xFF690005)
 
+
 /* DARK THEME */
 
 val GastonDarkBackground = Color(0xFF11131A)

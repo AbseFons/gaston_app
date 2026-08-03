@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,10 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
 
 @Composable
 fun InicioHeader(
@@ -41,13 +38,13 @@ fun InicioHeader(
                 text = "Hola, $nombre",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = TextoPrincipal
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "Este es tu resumen de gastos",
                 fontSize = 14.sp,
-                color = TextoSecundario
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 
@@ -57,12 +54,12 @@ fun InicioHeader(
                 .padding(end = 16.dp)
                 .size(48.dp)
                 .clip(RoundedCornerShape(18.dp))
-                .background(FondoPrimarioSuave)
+                .background(MaterialTheme.colorScheme.primaryContainer)
         ) {
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Abrir configuración",
-                tint = Primario,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(25.dp)
             )
         }

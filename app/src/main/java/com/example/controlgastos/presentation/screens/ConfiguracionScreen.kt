@@ -28,6 +28,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -55,14 +56,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.BordeSuave
-import com.example.controlgastos.core.ui.theme.ErrorGasto
-import com.example.controlgastos.core.ui.theme.Fondo
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
 import com.example.controlgastos.presentation.components.PrimaryButton
 import com.example.controlgastos.presentation.components.header.AppTopBar
 import com.example.controlgastos.presentation.state.ConfiguracionUiEvent
@@ -135,12 +128,12 @@ fun ConfiguracionScreen(
 
     val coloresCampo =
         OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Primario,
-            unfocusedBorderColor = BordeSuave,
-            focusedLabelColor = Primario,
-            unfocusedLabelColor = TextoSecundario,
-            cursorColor = Primario,
-            errorBorderColor = ErrorGasto
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            cursorColor = MaterialTheme.colorScheme.primary,
+            errorBorderColor = MaterialTheme.colorScheme.error
         )
 
     LaunchedEffect(
@@ -200,7 +193,7 @@ fun ConfiguracionScreen(
         modifier = Modifier.nestedScroll(
             scrollBehavior.nestedScrollConnection
         ),
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = {
             SnackbarHost(snackbarHostState)
         },
@@ -216,7 +209,7 @@ fun ConfiguracionScreen(
                             imageVector =
                                 Icons.Default.ArrowBack,
                             contentDescription = "Volver",
-                            tint = TextoPrincipal
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -227,7 +220,7 @@ fun ConfiguracionScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Fondo),
+                .background(MaterialTheme.colorScheme.background),
             contentPadding = PaddingValues(
                 start = 20.dp,
                 end = 20.dp,
@@ -373,7 +366,7 @@ fun ConfiguracionScreen(
 
                     Text(
                         text = "Moneda",
-                        color = TextoPrincipal,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -417,7 +410,7 @@ fun ConfiguracionScreen(
                         ) {
                             Text(
                                 text = "Modo oscuro",
-                                color = TextoPrincipal,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontSize = 15.sp,
                                 fontWeight =
                                     FontWeight.SemiBold
@@ -426,7 +419,7 @@ fun ConfiguracionScreen(
                             Text(
                                 text =
                                     "Utiliza colores oscuros en toda la aplicación",
-                                color = TextoSecundario,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 13.sp
                             )
                         }
@@ -440,13 +433,13 @@ fun ConfiguracionScreen(
                                 checkedThumbColor =
                                     Color.White,
                                 checkedTrackColor =
-                                    Primario,
+                                    MaterialTheme.colorScheme.primary,
                                 uncheckedThumbColor =
-                                    TextoSecundario,
+                                    MaterialTheme.colorScheme.onSurfaceVariant,
                                 uncheckedTrackColor =
-                                    FondoPrimarioSuave,
+                                    MaterialTheme.colorScheme.primaryContainer,
                                 uncheckedBorderColor =
-                                    BordeSuave
+                                    MaterialTheme.colorScheme.outline
                             )
                         )
                     }
@@ -522,7 +515,7 @@ private fun PerfilResumenCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = FondoPrimarioSuave
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
@@ -538,7 +531,7 @@ private fun PerfilResumenCard(
                 modifier = Modifier
                     .size(56.dp)
                     .background(
-                        color = Primario,
+                        color = MaterialTheme.colorScheme.primary,
                         shape = RoundedCornerShape(20.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -564,7 +557,7 @@ private fun PerfilResumenCard(
                         .filter { it.isNotBlank() }
                         .joinToString(" ")
                         .ifBlank { "Usuario local" },
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -589,7 +582,7 @@ private fun CardConfiguracion(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -603,7 +596,7 @@ private fun CardConfiguracion(
                 if (titulo != null) {
                     Text(
                     text = titulo,
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                     )
@@ -612,7 +605,7 @@ private fun CardConfiguracion(
                 if (subtitulo != null) {
                     Text(
                     text = subtitulo,
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 13.sp
                     )
                 }
@@ -638,16 +631,16 @@ private fun MonedaOption(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(15.dp),
         color = if (seleccionado) {
-            Primario
+            MaterialTheme.colorScheme.primary
         } else {
-            Tarjetas
+            MaterialTheme.colorScheme.surface
         },
         border = androidx.compose.foundation.BorderStroke(
             width = 1.dp,
             color = if (seleccionado) {
-                Primario
+                MaterialTheme.colorScheme.primary
             } else {
-                BordeSuave
+                MaterialTheme.colorScheme.outline
             }
         )
     ) {
@@ -659,7 +652,7 @@ private fun MonedaOption(
                 color = if (seleccionado) {
                     Color.White
                 } else {
-                    TextoPrincipal
+                    MaterialTheme.colorScheme.onSurface
                 },
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
@@ -685,7 +678,7 @@ private fun AcercaDeCard() {
 
         Text(
             text = "Gaston Versión 1.0",
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp
         )
 
@@ -695,7 +688,7 @@ private fun AcercaDeCard() {
 
         Text(
             text = "Tus datos se almacenan localmente.",
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp
         )
     }

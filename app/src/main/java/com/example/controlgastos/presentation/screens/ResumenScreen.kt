@@ -30,6 +30,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -57,16 +58,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.controlgastos.core.ui.theme.Acento
-import com.example.controlgastos.core.ui.theme.BordeSuave
-import com.example.controlgastos.core.ui.theme.ErrorGasto
-import com.example.controlgastos.core.ui.theme.Fondo
-import com.example.controlgastos.core.ui.theme.FondoAcentoSuave
-import com.example.controlgastos.core.ui.theme.FondoPrimarioSuave
-import com.example.controlgastos.core.ui.theme.Primario
-import com.example.controlgastos.core.ui.theme.Tarjetas
-import com.example.controlgastos.core.ui.theme.TextoPrincipal
-import com.example.controlgastos.core.ui.theme.TextoSecundario
+import com.example.controlgastos.core.ui.util.colorDesdeHex
 import com.example.controlgastos.domain.model.Categoria
 import com.example.controlgastos.domain.model.Gasto
 import com.example.controlgastos.presentation.components.formatoMoneda
@@ -161,7 +153,7 @@ fun ResumenScreen(
         modifier = Modifier.nestedScroll(
             scrollBehavior.nestedScrollConnection
         ),
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             AppTopBar(
                 titulo = "Resumen",
@@ -176,7 +168,7 @@ fun ResumenScreen(
                         Icon(
                             imageVector = Icons.Default.DateRange,
                             contentDescription = "Cambiar mes",
-                            tint = Primario
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }
@@ -192,7 +184,7 @@ fun ResumenScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = Primario
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -212,7 +204,7 @@ fun ResumenScreen(
                     modifier = Modifier
                         .padding(paddingValues)
                         .fillMaxSize()
-                        .background(Fondo),
+                        .background(MaterialTheme.colorScheme.background),
                     contentPadding = PaddingValues(
                         start = 20.dp,
                         end = 20.dp,
@@ -262,7 +254,7 @@ fun ResumenScreen(
                                         ?: "Sin categoría",
                                     colorCategoria = colorDesdeHex(
                                         categoria?.color
-                                    )
+                                    ) ?: MaterialTheme.colorScheme.primary
                                 )
                             }
                         }
@@ -297,7 +289,7 @@ private fun ResumenPrincipalCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Primario
+            containerColor = MaterialTheme.colorScheme.primary
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 3.dp
@@ -309,8 +301,8 @@ private fun ResumenPrincipalCard(
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            Primario,
-                            Acento
+                            MaterialTheme.colorScheme.primary,
+                            MaterialTheme.colorScheme.secondary
                         )
                     )
                 )
@@ -410,7 +402,7 @@ private fun DistribucionCategoriasCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -447,7 +439,7 @@ private fun DistribucionCategoriasCard(
                         modifier = Modifier.padding(
                             vertical = 11.dp
                         ),
-                        color = BordeSuave
+                        color = MaterialTheme.colorScheme.outline
                     )
                 }
             }
@@ -460,6 +452,9 @@ private fun DonutCategorias(
     categorias: List<CategoriaResumen>,
     total: Double
 ) {
+    val colorBorde = MaterialTheme.colorScheme.outline
+    val colorPrimario = MaterialTheme.colorScheme.primary
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -482,7 +477,7 @@ private fun DonutCategorias(
             )
 
             drawArc(
-                color = BordeSuave,
+                color = colorBorde,
                 startAngle = -90f,
                 sweepAngle = 360f,
                 useCenter = false,
@@ -499,10 +494,13 @@ private fun DonutCategorias(
             categorias.forEach { resumen ->
                 val barrido = resumen.porcentaje * 360f
 
-                drawArc(
-                    color = colorDesdeHex(
+                val colorCategoria =
+                    colorDesdeHex(
                         resumen.categoria.color
-                    ),
+                    ) ?: colorPrimario
+
+                drawArc(
+                    color = colorCategoria,
                     startAngle = anguloInicial,
                     sweepAngle = barrido,
                     useCenter = false,
@@ -523,13 +521,13 @@ private fun DonutCategorias(
         ) {
             Text(
                 text = "Total",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
 
             Text(
                 text = "S/ ${total.formatoMoneda()}",
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -551,7 +549,7 @@ private fun CategoriaResumenFila(
                 .background(
                     color = colorDesdeHex(
                         resumen.categoria.color
-                    ),
+                    )?: MaterialTheme.colorScheme.primary,
                     shape = CircleShape
                 )
         )
@@ -565,21 +563,21 @@ private fun CategoriaResumenFila(
         ) {
             Text(
                 text = resumen.categoria.nombre,
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
             Text(
                 text = "${(resumen.porcentaje * 100).toInt()}% del total",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
 
         Text(
             text = "S/ ${resumen.total.formatoMoneda()}",
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
@@ -598,7 +596,7 @@ private fun GastosPorPeriodoCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -657,7 +655,7 @@ private fun BarraPeriodo(
             } else {
                 "-"
             },
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             maxLines = 1
         )
@@ -696,15 +694,15 @@ private fun BarraPeriodo(
                         brush = if (periodo.total > 0) {
                             Brush.verticalGradient(
                                 colors = listOf(
-                                    Acento,
-                                    Primario
+                                    MaterialTheme.colorScheme.secondary,
+                                    MaterialTheme.colorScheme.primary
                                 )
                             )
                         } else {
                             Brush.verticalGradient(
                                 colors = listOf(
-                                    BordeSuave,
-                                    BordeSuave
+                                    MaterialTheme.colorScheme.outline,
+                                    MaterialTheme.colorScheme.outline
                                 )
                             )
                         }
@@ -718,7 +716,7 @@ private fun BarraPeriodo(
 
         Text(
             text = periodo.nombre,
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             maxLines = 1
         )
@@ -735,7 +733,7 @@ private fun MayorGastoCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = FondoAcentoSuave
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
@@ -777,13 +775,13 @@ private fun MayorGastoCard(
             ) {
                 Text(
                     text = "Mayor gasto del mes",
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
 
                 Text(
                     text = gasto.descripcion,
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -792,14 +790,14 @@ private fun MayorGastoCard(
 
                 Text(
                     text = nombreCategoria,
-                    color = TextoSecundario,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
 
             Text(
                 text = "S/ ${gasto.monto.formatoMoneda()}",
-                color = ErrorGasto,
+                color = MaterialTheme.colorScheme.error,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -815,7 +813,7 @@ private fun TituloSeccion(
     Column {
         Text(
             text = titulo,
-            color = TextoPrincipal,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
@@ -826,7 +824,7 @@ private fun TituloSeccion(
 
         Text(
             text = subtitulo,
-            color = TextoSecundario,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp
         )
     }
@@ -840,7 +838,7 @@ private fun EmptyResumenCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Tarjetas
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
@@ -859,7 +857,7 @@ private fun EmptyResumenCard(
                 modifier = Modifier
                     .size(58.dp)
                     .background(
-                        color = FondoPrimarioSuave,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         shape = RoundedCornerShape(20.dp)
                     ),
                 contentAlignment = Alignment.Center
@@ -867,7 +865,7 @@ private fun EmptyResumenCard(
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = null,
-                    tint = Primario,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(28.dp)
                 )
             }
@@ -878,7 +876,7 @@ private fun EmptyResumenCard(
 
             Text(
                 text = "No hay gastos registrados",
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -889,7 +887,7 @@ private fun EmptyResumenCard(
 
             Text(
                 text = "No se encontraron movimientos para $mes.",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 14.sp
             )
         }
@@ -908,7 +906,7 @@ private fun ErrorResumen(
         Card(
             shape = RoundedCornerShape(22.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Tarjetas
+                containerColor = MaterialTheme.colorScheme.surface
             )
         ) {
             Column(
@@ -917,7 +915,7 @@ private fun ErrorResumen(
             ) {
                 Text(
                     text = "No se pudo cargar el resumen",
-                    color = TextoPrincipal,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -928,7 +926,7 @@ private fun ErrorResumen(
 
                 Text(
                     text = mensaje,
-                    color = ErrorGasto,
+                    color = MaterialTheme.colorScheme.error,
                     fontSize = 14.sp
                 )
             }
@@ -967,12 +965,12 @@ private fun SelectorMesDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = Fondo,
+        containerColor = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(28.dp),
         title = {
             Text(
                 text = "Seleccionar mes",
-                color = TextoPrincipal,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -993,13 +991,13 @@ private fun SelectorMesDialog(
                             imageVector =
                                 Icons.Default.KeyboardArrowLeft,
                             contentDescription = "Año anterior",
-                            tint = TextoPrincipal
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
 
                     Text(
                         text = anioVisible.toString(),
-                        color = TextoPrincipal,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -1013,7 +1011,7 @@ private fun SelectorMesDialog(
                             imageVector =
                                 Icons.Default.KeyboardArrowRight,
                             contentDescription = "Año siguiente",
-                            tint = TextoPrincipal
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -1058,16 +1056,16 @@ private fun SelectorMesDialog(
                                         },
                                     shape = RoundedCornerShape(15.dp),
                                     color = if (seleccionado) {
-                                        Primario
+                                        MaterialTheme.colorScheme.primary
                                     } else {
-                                        Tarjetas
+                                        MaterialTheme.colorScheme.surface
                                     },
                                     border = BorderStroke(
                                         width = 1.dp,
                                         color = if (seleccionado) {
-                                            Primario
+                                            MaterialTheme.colorScheme.primary
                                         } else {
-                                            BordeSuave
+                                            MaterialTheme.colorScheme.outline
                                         }
                                     )
                                 ) {
@@ -1081,7 +1079,7 @@ private fun SelectorMesDialog(
                                             color = if (seleccionado) {
                                                 Color.White
                                             } else {
-                                                TextoPrincipal
+                                                MaterialTheme.colorScheme.onSurface
                                             },
                                             fontSize = 14.sp,
                                             fontWeight =
@@ -1106,7 +1104,7 @@ private fun SelectorMesDialog(
             ) {
                 Text(
                     text = "Cerrar",
-                    color = Primario,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -1156,22 +1154,6 @@ private fun obtenerGastosPorPeriodo(
             nombre = nombre,
             total = totales[index]
         )
-    }
-}
-
-private fun colorDesdeHex(
-    hex: String?
-): Color {
-    return try {
-        if (hex.isNullOrBlank()) {
-            Primario
-        } else {
-            Color(
-                android.graphics.Color.parseColor(hex)
-            )
-        }
-    } catch (_: Exception) {
-        Primario
     }
 }
 
