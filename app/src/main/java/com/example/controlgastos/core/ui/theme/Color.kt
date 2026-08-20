@@ -43,13 +43,13 @@ val GastonDarkSurface = Color(0xFF1B1E27)
 val GastonDarkSurfaceVariant = Color(0xFF242834)
 val GastonDarkSurfaceElevated = Color(0xFF2A2E3A)
 
-val GastonDarkPrimary = Color(0xFFA9A6FF)
+val GastonDarkPrimary = Color(0xFF7C79D7)
 val GastonDarkOnPrimary = Color(0xFF252154)
 
 val GastonDarkPrimaryContainer = Color(0xFF353258)
 val GastonDarkOnPrimaryContainer = Color(0xFFE4E2FF)
 
-val GastonDarkSecondary = Color(0xFF75D6E4)
+val GastonDarkSecondary = Color(0xFF49A4B2)
 val GastonDarkOnSecondary = Color(0xFF00363D)
 
 val GastonDarkSecondaryContainer = Color(0xFF194750)
