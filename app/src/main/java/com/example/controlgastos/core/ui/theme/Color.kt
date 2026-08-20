@@ -35,34 +35,41 @@ val GastonLightErrorContainer = Color(0xFFFFE9E7)
 val GastonLightOnErrorContainer = Color(0xFF690005)
 
 
-/* DARK THEME */
+/* DARK THEME — REVISED */
 
 val GastonDarkBackground = Color(0xFF11131B)
-val GastonDarkSurface = Color(0xFF1A1D26)
-val GastonDarkSurfaceVariant = Color(0xFF252936)
 
-val GastonDarkPrimary = Color(0xFFB9B6FF)
-val GastonDarkOnPrimary = Color(0xFF24205F)
-val GastonDarkPrimaryContainer = Color(0xFF39356D)
-val GastonDarkOnPrimaryContainer = Color(0xFFE3E1FF)
+val GastonDarkSurface = Color(0xFF1B1E27)
+val GastonDarkSurfaceVariant = Color(0xFF242834)
+val GastonDarkSurfaceElevated = Color(0xFF2A2E3A)
 
-val GastonDarkSecondary = Color(0xFF6EDDEA)
+val GastonDarkPrimary = Color(0xFFA9A6FF)
+val GastonDarkOnPrimary = Color(0xFF252154)
+
+val GastonDarkPrimaryContainer = Color(0xFF353258)
+val GastonDarkOnPrimaryContainer = Color(0xFFE4E2FF)
+
+val GastonDarkSecondary = Color(0xFF75D6E4)
 val GastonDarkOnSecondary = Color(0xFF00363D)
-val GastonDarkSecondaryContainer = Color(0xFF174A52)
-val GastonDarkOnSecondaryContainer = Color(0xFFA8F3FF)
+
+val GastonDarkSecondaryContainer = Color(0xFF194750)
+val GastonDarkOnSecondaryContainer = Color(0xFFB5F4FC)
 
 val GastonDarkTertiary = Color(0xFF5DDAA4)
 val GastonDarkOnTertiary = Color(0xFF003822)
-val GastonDarkTertiaryContainer = Color(0xFF15543A)
-val GastonDarkOnTertiaryContainer = Color(0xFFB9F5D6)
 
-val GastonDarkOnBackground = Color(0xFFF1F2F8)
-val GastonDarkOnSurface = Color(0xFFF1F2F8)
-val GastonDarkOnSurfaceVariant = Color(0xFFBEC2D0)
+val GastonDarkTertiaryContainer = Color(0xFF164A37)
+val GastonDarkOnTertiaryContainer = Color(0xFFB8F4D6)
 
-val GastonDarkOutline = Color(0xFF3B3F4D)
+val GastonDarkOnBackground = Color(0xFFE9EBF2)
+val GastonDarkOnSurface = Color(0xFFE9EBF2)
+val GastonDarkOnSurfaceVariant = Color(0xFFB5B9C7)
 
-val GastonDarkError = Color(0xFFFFB4AB)
-val GastonDarkOnError = Color(0xFF690005)
-val GastonDarkErrorContainer = Color(0xFF5A1F1D)
-val GastonDarkOnErrorContainer = Color(0xFFFFDAD6)
+val GastonDarkOutline = Color(0xFF444957)
+val GastonDarkOutlineVariant = Color(0xFF303440)
+
+val GastonDarkError = Color(0xFFFF9292)
+val GastonDarkOnError = Color(0xFF4F1013)
+
+val GastonDarkErrorContainer = Color(0xFF542326)
+val GastonDarkOnErrorContainer = Color(0xFFFFDAD8)
